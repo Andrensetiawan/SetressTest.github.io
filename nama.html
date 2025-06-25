@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cek Tingkat Kesetresan Anda</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/templatemo-first-portfolio-style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a href="#" class="navbar-brand mx-auto mx-lg-0">Stressku</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-lg-5">
+        <li class="nav-item"><a class="nav-link" href="#section_1">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section_2">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section_3">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section_4">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section_5">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section id="section_1" class="hero d-flex justify-content-center align-items-center position-relative" style="min-height: 100vh;">
+
+  <div class="container text-center" style="z-index: 10; position: relative;">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card p-5 shadow rounded-5 border-0 bg-white">
+          <h3 class="fw-bold mb-4 text-primary">Isi Data Anda</h3>
+          <form onsubmit="sendData(event)">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-pill ps-4" id="nama" name="nama" placeholder="Nama Lengkap" required>
+              <label for="nama" class="ps-4">Nama Lengkap</label>
+            </div>
+            <div class="form-floating mb-4">
+              <input type="number" class="form-control rounded-pill ps-4" id="umur" name="umur" placeholder="Umur" required>
+              <label for="umur" class="ps-4">Umur</label>
+            </div>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2">Mulai Tes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SVG BACKGROUND -->
+  <svg class="position-absolute w-100 bottom-0 z-n1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path fill="#535da1" fill-opacity="1" d="M0,160L24,160C48,160,96,160,144,138.7C192,117,240,75,288,64C336,53,384,75,432,106.7C480,139,528,181,576,208C624,235,672,245,720,240C768,235,816,213,864,186.7C912,160,960,128,1008,133.3C1056,139,1104,181,1152,202.7C1200,224,1248,224,1296,197.3C1344,171,1392,117,1416,90.7L1440,64L1440,0L0,0Z"/>
+  </svg>
+
+</section>
+</main>
+
+<!-- Google Sheets Submit Script -->
+<script>
+  async function sendData(e) {
+    e.preventDefault();
+
+    const form = new FormData();
+    form.append("nama", document.getElementById("nama").value);
+    form.append("umur", document.getElementById("umur").value);
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxKrneaWwBi7reSE7asQxl1bty4lB8S4xyaDrZG9PQx25dY-1TnQepSv_7ZAxawVn54/exec"; // Ganti dengan punyamu
+
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: form
+        // Jangan set headers agar tidak kena CORS!
+      });
+
+      if (response.ok) {
+        alert("✅ Data berhasil dikirim!");
+        window.location.href = "pertanyaan.html"; // Ganti sesuai halaman Anda
+      } else {
+        alert("❌ Gagal mengirim data.");
+        console.error("Status:", response.statusText);
+      }
+    } catch (err) {
+      alert("❌ Gagal mengirim data.");
+      console.error(err);
+    }
+  }
+</script>
+
+
+<!-- JS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>
